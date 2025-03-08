@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+[class*="col-"] {
+  float: left;
+  padding: 15px;
+}
+
+html {
+  font-family: "Lucida Sans", sans-serif;
+}
+
+.header {
+  background-color: #9e9e9e;
+  color: #ffffff;
+  padding: 15px;
+}
+
+.menu ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu li {
+  padding: 8px;
+  margin-bottom: 7px;
+  background-color: #33b5e5;
+  color: #ffffff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.menu li:hover {
+  background-color: #0099cc;
+}
+
+.aside {
+  background-color: #33b5e5;
+  padding: 15px;
+  color: #ffffff;
+  text-align: center;
+  font-size: 14px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.footer {
+  background-color: #0099cc;
+  color: #ffffff;
+  text-align: center;
+  font-size: 12px;
+  padding: 15px;
+}
+
+/* For mobile phones: */
+[class*="col-"] {
+  width: 100%;
+}
+
+@media only screen and (min-width: 600px) {
+  /* For tablets: */
+  .col-s-1 {width: 8.33%;}
+  .col-s-2 {width: 16.66%;}
+  .col-s-3 {width: 25%;}
+  .col-s-4 {width: 33.33%;}
+  .col-s-5 {width: 41.66%;}
+  .col-s-6 {width: 50%;}
+  .col-s-7 {width: 58.33%;}
+  .col-s-8 {width: 66.66%;}
+  .col-s-9 {width: 75%;}
+  .col-s-10 {width: 83.33%;}
+  .col-s-11 {width: 91.66%;}
+  .col-s-12 {width: 100%;}
+}
+@media only screen and (min-width: 768px) {
+  /* For desktop: */
+  .col-1 {width: 8.33%;}
+  .col-2 {width: 16.66%;}
+  .col-3 {width: 25%;}
+  .col-4 {width: 33.33%;}
+  .col-5 {width: 41.66%;}
+  .col-6 {width: 50%;}
+  .col-7 {width: 58.33%;}
+  .col-8 {width: 66.66%;}
+  .col-9 {width: 75%;}
+  .col-10 {width: 83.33%;}
+  .col-11 {width: 91.66%;}
+  .col-12 {width: 100%;}
+}
+</style>
+   <style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        position: relative;
+        background-color: #1e1d1d;
+        min-height: 100vh; /* Ensure the body takes at least the full height of the viewport */
+    }
+
+    #chat-container {
+        max-width: 500px;
+        margin: auto;
+        margin-bottom: 60px; /* Adjust this margin to leave space for the form at the bottom */
+    }
+
+    .message {
+        margin: 10px;
+        padding: 10px;
+        border-radius: 10px;
+        position: relative;
+    }
+
+    .user-message {
+        background-color: #9e9e9e;
+    }
+
+    .bot-message {
+        background-color: #d56ad7;
+    }
+
+    input[type="text"] {
+        width: 80%;
+        padding: 10px;
+        margin: 10px;
+    }
+
+    input[type="submit"] {
+        padding: 10px;
+        cursor: pointer;
+    }
+
+    /* Position the form at the bottom */
+    form {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: #fff; /* Adjust the background color as needed */
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+    .good-response-button {
+        position: absolute;
+        margin-right:10px;
+        top: 5px;
+        right: 5px;
+        cursor: pointer;
+        background-color: #00ff00;
+    }
+.redirect-button {
+    display: inline-block;
+    margin-left: 10px; /* Adjust the margin as needed */
+}
+
+.redirect-button-icon {
+    padding: 10px;
+    cursor: pointer;
+    background-color: #fff; /* Adjust the background color as needed */
+    border: none;
+    outline: none;
+}
+
+.redirect-button-icon img {
+    width: 20px; /* Adjust the icon size as needed */
+    height: 20px; /* Adjust the icon size as needed */
+}
+
+</style>
+</head>
+<body>
+
+<div class="header" style="text-align: center;">
+  <h1>Telecom Chatbot</h1>
+  <p>Chatbot For Helping Customers</p>
+</div>
+
+
+<div class="row">
+
+
+     <div id="chat-container">
+        {% for message in chat_history %}
+            <div class="message user-message">
+                <strong>You:</strong> {{ message.user_message }}
+            </div>
+            <div class="message bot-message">
+                <strong>Agribot:</strong> {{message.bot_response }}
+<select id="languageDropdown" onchange="handleDropdownChange(this)">
+  <option value="kannada">Kannada</option>
+  <option value="hindi">Hindi</option>
+  <option value="tamil">Tamil</option>
+  <option value="malayalam">Malayalam</option>
+  <option value="english">English</option>
+  <option value="marathi">Marathi</option>
+
+</select>
+
+            </div>
+
+        {% endfor %} 
+        <br><br>
+<br>
+<br>
+<br>
+<br>
+<form method="post">
+    <input type="text" name="user_message" placeholder="Type your question...">
+    
+    <!-- Button 1 -->
+    <button type="submit" formaction="/ask" style="margin-top: 10px; background-color:#c1c1c1; color: white; padding: 10px; border: none; cursor: pointer;">Send</button>
+    
+    <!-- Button 2 -->
+   <!-- Button 2 -->
+    
+
+</form>
+        
+
+
+        
+    </div>
+
+
+<script>
+    function handleDropdownChange(dropdown) {
+        var selectedValue = dropdown.value;
+        
+        switch (selectedValue) {
+            case 'kannada':
+                replaceText(dropdown);
+                break;
+            case 'hindi':
+                replaceText2(dropdown);
+                break;
+            case 'tamil':
+                replaceText3(dropdown);
+                break;
+            case 'malayalam':
+                replaceText4(dropdown);
+                break;
+            case 'english':
+                replaceText5(dropdown);
+                break;
+            case 'marathi':
+                replaceText6(dropdown);
+                break;
+            default:
+                break;
+        }
+    }
+</script>
+
+<script>
+    function replaceText(button) {
+        var botMessage = button.parentElement.querySelector('strong');
+        var kannadaTranslation = "{{ kannada_translation }}";
+        if (botMessage) {
+            botMessage.nextSibling.nodeValue = kannadaTranslation;
+        }
+    }
+</script>
+
+<script>
+    function replaceText2(button) {
+        var botMessage = button.parentElement.querySelector('strong');
+        var kannadaTranslation = "{{ hindi_translation}}";
+        if (botMessage) {
+            botMessage.nextSibling.nodeValue = kannadaTranslation;
+        }
+    }
+</script>
+<script>
+    function replaceText3(button) {
+        var botMessage = button.parentElement.querySelector('strong');
+        var tamil_translation = "{{ tamil_translation}}";
+        if (botMessage) {
+            botMessage.nextSibling.nodeValue = tamil_translation;
+        }
+    }
+</script>
+<script>
+    function replaceText4(button) {
+        var botMessage = button.parentElement.querySelector('strong');
+        var malayalam_translation = "{{ malayalam_translation}}";
+        if (botMessage) {
+            botMessage.nextSibling.nodeValue = malayalam_translation;
+        }
+    }
+</script>
+
+
+
+<script>
+    function replaceText5(button) {
+        var botMessage = button.parentElement.querySelector('strong');
+        var english_translation = "{{ english_translation}}";
+        if (botMessage) {
+            botMessage.nextSibling.nodeValue = english_translation;
+        }
+    }
+</script>
+
+<script>
+    function replaceText6(button) {
+        var botMessage = button.parentElement.querySelector('strong');
+        var marathi_translation = "{{marathi_translation}}";
+        if (botMessage) {
+            botMessage.nextSibling.nodeValue = marathi_translation;
+        }
+    }
+</script>
+
+</div>
+
+
+
+</body>
+</html>
+
+

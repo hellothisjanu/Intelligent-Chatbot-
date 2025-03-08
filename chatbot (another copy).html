@@ -1,0 +1,170 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatGPT Chat Page</title>
+   <style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        position: relative;
+        background-color: #1e1d1d;
+        min-height: 100vh; /* Ensure the body takes at least the full height of the viewport */
+    }
+
+    #chat-container {
+        max-width: 500px;
+        margin: auto;
+        margin-bottom: 60px; /* Adjust this margin to leave space for the form at the bottom */
+    }
+
+    .message {
+        margin: 10px;
+        padding: 10px;
+        border-radius: 10px;
+        position: relative;
+    }
+
+    .user-message {
+        background-color: #9e9e9e;
+    }
+
+    .bot-message {
+        background-color: #d56ad7;
+    }
+
+    input[type="text"] {
+        width: 80%;
+        padding: 10px;
+        margin: 10px;
+    }
+
+    input[type="submit"] {
+        padding: 10px;
+        cursor: pointer;
+    }
+
+    /* Position the form at the bottom */
+    form {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: #fff; /* Adjust the background color as needed */
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+    .good-response-button {
+        position: absolute;
+        margin-right:10px;
+        top: 5px;
+        right: 5px;
+        cursor: pointer;
+        background-color: #00ff00;
+    }
+.redirect-button {
+    display: inline-block;
+    margin-left: 10px; /* Adjust the margin as needed */
+}
+
+.redirect-button-icon {
+    padding: 10px;
+    cursor: pointer;
+    background-color: #fff; /* Adjust the background color as needed */
+    border: none;
+    outline: none;
+}
+
+.redirect-button-icon img {
+    width: 20px; /* Adjust the icon size as needed */
+    height: 20px; /* Adjust the icon size as needed */
+}
+
+</style>
+
+</head>
+<body>
+    <div id="chat-container">
+        {% for message in chat_history %}
+            <div class="message user-message">
+                <strong>You:</strong> {{ message.user_message }}
+            </div>
+            <div class="message bot-message">
+                <strong>Coalbot:</strong> {{ message.bot_response }}
+                <button class="good-response-button" onclick="replaceText(this)" style="
+    left: 500px;
+">Kannada</button>
+                <button class="good-response-button" onclick="replaceText2(this)" style="
+    left: 580px;
+">Hindi</button>
+                <button class="good-response-button" onclick="replaceText3(this)" style="
+    left: 650px;
+">Tamil</button>
+                <button class="good-response-button" onclick="replaceText4(this)" style="
+    left: 700px;
+">Malayalam</button>
+            </div>
+        {% endfor %}
+        <br><br>
+<br>
+<br>
+<br>
+<br>
+<form method="post">
+    <input type="text" name="user_message" placeholder="Type your question...">
+    
+    <!-- Button 1 -->
+    <button type="submit" formaction="/ask" style="margin-top: 10px; background-color:#c1c1c1; color: white; padding: 10px; border: none; cursor: pointer;">Send</button>
+    
+    <!-- Button 2 -->
+    <button type="submit" formaction="/voice_recorder" style="margin-top: 10px; background-color: #ef1a0a; color: white; padding: 10px; border: none; cursor: pointer;">Voice Recorder</button>
+
+</form>
+        
+
+
+        
+    </div>
+
+<script>
+    function replaceText(button) {
+        var botMessage = button.parentElement.querySelector('strong');
+        var kannadaTranslation = "{{ kannada_translation }}";
+        if (botMessage) {
+            botMessage.nextSibling.nodeValue = kannadaTranslation;
+        }
+    }
+</script>
+
+<script>
+    function replaceText2(button) {
+        var botMessage = button.parentElement.querySelector('strong');
+        var kannadaTranslation = "{{ hindi_translation}}";
+        if (botMessage) {
+            botMessage.nextSibling.nodeValue = kannadaTranslation;
+        }
+    }
+</script>
+<script>
+    function replaceText3(button) {
+        var botMessage = button.parentElement.querySelector('strong');
+        var tamil_translation = "{{ tamil_translation}}";
+        if (botMessage) {
+            botMessage.nextSibling.nodeValue = tamil_translation;
+        }
+    }
+</script>
+<script>
+    function replaceText4(button) {
+        var botMessage = button.parentElement.querySelector('strong');
+        var malayalam_translation = "{{ malayalam_translation}}";
+        if (botMessage) {
+            botMessage.nextSibling.nodeValue = malayalam_translation;
+        }
+    }
+</script>
+</body>
+</html>

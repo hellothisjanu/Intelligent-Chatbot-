@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        #chat-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        #history {
+            width: 20%;
+            background-color: #f2f2f2;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow-y: auto;
+        }
+
+        #conversation {
+            flex: 1;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow-y: auto;
+        }
+
+        #entry-container {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+            background-color: #f2f2f2;
+        }
+
+        #message-input {
+            flex: 1;
+            padding: 10px;
+        }
+
+        #send-button, #clear-button {
+            margin-left: 10px;
+            padding: 10px;
+            cursor: pointer;
+        }
+    </style>
+    <title>ChatGPT-like Page</title>
+</head>
+<body>
+
+    <div id="chat-container">
+        <div id="history">
+            <!-- History content goes here -->
+        </div>
+        <div id="conversation">
+            <!-- Conversation content goes here -->
+        </div>
+    </div>
+
+    <div id="entry-container">
+        <input type="text" id="message-input" placeholder="Type your message...">
+        <button id="send-button">Send</button>
+        <button id="clear-button">Clear</button>
+    </div>
+
+</body>
+</html>
